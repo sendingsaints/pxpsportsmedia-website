@@ -318,6 +318,60 @@ a.tk-chip:hover{border-color:var(--green)}
   font-size:14px;letter-spacing:.16em;text-transform:uppercase;color:#160a04;
   background:var(--orange);padding:4px 10px;border-radius:6px;margin-bottom:16px}
 
+/* league leaders (v8) — JS-filled rows off ESPN's core leaders wire
+   (season leaders, athlete/team refs hydrated). Same two-line
+   collapse discipline as the board and the injury report. */
+.ld{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:6px 26px}
+.ld-cat{display:flex;align-items:baseline;gap:12px;padding:18px 0 2px;flex-wrap:wrap}
+.ld-cat:first-child{padding-top:12px}
+.ld-tag{flex:none;font-family:"Anton",sans-serif;font-size:12.5px;letter-spacing:.1em;color:var(--green)}
+.ld-catname{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
+.ld-row{display:flex;align-items:baseline;gap:6px 22px;padding:9px 0;
+  border-bottom:1px solid var(--line-soft)}
+.ld-row.last{border-bottom:none}
+.ld-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
+.ld-rank{flex:none;font-family:"Anton",sans-serif;font-size:17px;color:var(--orange);width:22px}
+.ld-name{color:var(--ink);font-weight:700;font-size:16px;overflow-wrap:break-word;min-width:0}
+.ld-team{color:var(--ink-muted);font-size:13.5px;white-space:nowrap}
+.ld-val{flex:none;font-family:"Anton",sans-serif;font-size:19px;color:var(--ink);
+  font-variant-numeric:tabular-nums;white-space:nowrap}
+@media(max-width:700px){
+  .ld{padding:2px 18px}
+  .ld-row{flex-direction:column;gap:2px;padding:8px 0}
+  .ld-line1{flex-wrap:wrap}
+}
+
+/* standings (v8) — full league tables on their own page. Each table
+   sits in its own horizontal-scroll wrapper (the .tablewrap pattern):
+   the page width never breaks; wide tables scroll inside their box. */
+.st-league{margin-top:40px}
+.st-league-name{font-size:clamp(24px,3.6vw,32px)}
+.st-group{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:18px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  margin:24px 0 10px}
+.st-scroll{overflow-x:auto;border:1px solid var(--line-soft);border-radius:var(--radius);
+  background:var(--surface);-webkit-overflow-scrolling:touch}
+table.st{border-collapse:collapse;width:100%;min-width:520px;background:transparent}
+table.st th,table.st td{padding:10px 14px;font-size:14.5px;text-align:right;
+  white-space:nowrap;border-bottom:1px solid var(--line-soft)}
+table.st th:first-child,table.st td:first-child{text-align:left}
+table.st th{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;font-size:13.5px;color:var(--green);background:var(--bg-2);
+  border-bottom:1px solid var(--line)}
+table.st td{color:var(--ink-soft)}
+table.st td.tm{color:var(--ink);font-weight:700}
+table.st tr:last-child td{border-bottom:none}
+@media(max-width:700px){
+  table.st{display:table;min-width:520px}
+  table.st thead{display:table-header-group}
+  table.st tbody{display:table-row-group}
+  table.st tr{display:table-row;padding:0;border-bottom:none}
+  table.st td{display:table-cell;width:auto;padding:10px 14px;
+    border-bottom:1px solid var(--line-soft)}
+}
+
 /* footer */
 footer.site{margin-top:72px;border-top:1px solid var(--line);background:var(--bg-2)}
 .foot{display:grid;gap:28px;padding:42px 0 8px}
