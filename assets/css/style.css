@@ -123,6 +123,27 @@ nav.main a:hover{color:var(--green)}
 .pair .join p{color:var(--ink-soft);font-size:15.5px;flex:1 1 260px}
 .fineprint{margin-top:14px;font-size:13px;color:var(--ink-muted)}
 
+/* play buttons (v8.2) — the owner's PrizePicks + Dabble referral doors as
+   real, tappable buttons in the .btn family. Equal size, equal weight:
+   green fill for PrizePicks, gold fill for Dabble. They sit side by side
+   when the row is wide and stack full-width on phones — labels never
+   wrap (nowrap); the Dabble button carries the code as a second line. */
+.play-row{margin-top:24px;border-top:1px solid var(--line-soft);padding-top:22px}
+.play-label{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:15px;
+  letter-spacing:.2em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 14px}
+.play-btns{display:flex;flex-wrap:wrap;gap:14px}
+.btn-play{flex:1 1 230px;padding:16px 22px;font-size:19px;white-space:nowrap}
+.btn-pp{background:var(--green);color:#06130b;border:1px solid var(--green)}
+.btn-pp:hover{background:#5df09a;border-color:#5df09a}
+.btn-db{background:var(--yellow);color:#1a1200;border:1px solid var(--yellow);
+  flex-direction:column;gap:2px;line-height:1.05}
+.btn-db:hover{background:#ffd94d;border-color:#ffd94d}
+.btn-db .bp-code{font-size:14.5px;letter-spacing:.12em;opacity:.82}
+.play-note{margin-top:12px;font-size:13px;color:var(--ink-muted)}
+.foot-play{color:var(--ink-soft);font-size:15px}
+.foot-play a{color:var(--green);font-weight:600}
+.foot-play strong{color:var(--ink)}
+
 /* book table */
 .tablewrap{margin-top:30px;overflow-x:auto;border:1px solid var(--line-soft);border-radius:var(--radius)}
 table{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface)}
