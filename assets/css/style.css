@@ -188,20 +188,35 @@ tr:last-child td{border-bottom:none}
 .platlist .h{color:var(--ink-muted);font-size:14px;display:block;overflow-wrap:anywhere}
 .email-line{overflow-wrap:anywhere;word-break:break-word}
 
-/* scoreboard strip (v2 — live, JS-filled) */
-.scoreboard{background:var(--bg-2);border-bottom:1px solid var(--line-soft);
-  overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-.scoreboard::-webkit-scrollbar{display:none}
-.sb-in{display:flex;gap:22px;align-items:center;padding:8px 0;width:max-content;min-width:100%}
-.sb-league{display:flex;gap:8px;align-items:center}
-.sb-lab{font-family:"Anton",sans-serif;font-size:14px;letter-spacing:.1em;color:var(--green);
-  border:1px solid var(--line);border-radius:6px;padding:5px 8px;white-space:nowrap}
-.sb-game{background:var(--surface);border:1px solid var(--line-soft);border-radius:8px;
-  padding:6px 11px;white-space:nowrap;font-size:13px;line-height:1.45;color:var(--ink-soft)}
-.sb-game b{color:var(--ink);font-weight:700}
-.sb-game .st{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
-.sb-game .st.live{color:var(--orange);font-weight:700}
-.sb-msg{font-size:13px;color:var(--ink-muted);white-space:nowrap}
+/* live scores ticker (v3 — seamless marquee, JS-filled) */
+.scoreboard{display:flex;align-items:stretch;background:var(--bg-2);
+  border-bottom:1px solid var(--line-soft);overflow:hidden}
+.tk-label{flex:none;display:flex;align-items:center;gap:8px;padding:8px 14px;
+  font-family:"Anton",sans-serif;font-size:14px;letter-spacing:.12em;color:var(--ink);
+  border-right:1px solid var(--line);white-space:nowrap;background:var(--bg-2);z-index:2}
+.tk-dot{width:8px;height:8px;border-radius:50%;background:#e5484d;flex:none;
+  animation:tk-pulse 1.6s ease-in-out infinite}
+@keyframes tk-pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.tk-view{flex:1;min-width:0;overflow:hidden;display:flex;align-items:center}
+.tk-track{display:flex;align-items:center;padding:8px 0;width:max-content;
+  animation:tk-scroll 60s linear infinite;will-change:transform}
+.scoreboard:hover .tk-track,.scoreboard:focus-within .tk-track{animation-play-state:paused}
+@keyframes tk-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.tk-chip{display:flex;align-items:center;gap:9px;margin-right:10px;background:var(--surface);
+  border:1px solid var(--line-soft);border-radius:8px;padding:6px 11px;white-space:nowrap;
+  font-size:13px;line-height:1.4;color:var(--ink-soft);text-decoration:none}
+a.tk-chip:hover{border-color:var(--green)}
+.tk-tag{font-family:"Anton",sans-serif;font-size:12px;letter-spacing:.1em;color:var(--green)}
+.tk-game .win{color:var(--ink);font-weight:800}
+.tk-st{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-muted)}
+.tk-st.live{color:var(--orange);font-weight:700}
+.tk-msg{font-size:13px;color:var(--ink-muted);white-space:nowrap}
+@media (prefers-reduced-motion: reduce){
+  .tk-view{overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+  .tk-view::-webkit-scrollbar{display:none}
+  .tk-track{animation:none}
+  .tk-dot{animation:none}
+}
 
 /* headline river + trending (v2) */
 .river{margin-top:26px;border-top:1px solid var(--line-soft)}
