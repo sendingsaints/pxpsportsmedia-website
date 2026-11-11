@@ -4,7 +4,7 @@
    static assets are cache-first. Cross-origin requests (the ESPN
    live-scores feed above all) are NEVER intercepted or cached — the
    scores must always be live. */
-var CACHE = "pxp-shell-v83";
+var CACHE = "pxp-shell-v84";
 var SHELL = [
   "/",
   "/assets/css/style.css",
@@ -12,6 +12,7 @@ var SHELL = [
   "/assets/js/odds.js",
   "/assets/js/injuries.js",
   "/assets/js/standings.js",
+  "/assets/js/scoreboards.js",
   "/assets/js/leaders.js",
   "/assets/js/news.js",
   "/assets/js/pwa.js",

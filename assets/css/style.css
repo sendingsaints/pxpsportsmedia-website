@@ -406,6 +406,72 @@ table.st tr:last-child td{border-bottom:none}
     border-bottom:1px solid var(--line-soft)}
 }
 
+/* scores page (v9) — full per-league scoreboards off the same ESPN
+   scoreboard wire as the ticker. One card per league; a game row is a
+   full-width link: two team lines (logo / rank / name / score) with
+   the status in a fixed right column. The winner's line runs bright,
+   the loser's muted, with the marker triangle at the winning score.
+   At phone width names truncate with an ellipsis inside their flex
+   slot — logos, scores and the status column never squeeze. */
+.sb-sec{margin-top:52px;scroll-margin-top:150px}
+.sb{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:6px 26px}
+.sb-game{display:block;text-decoration:none;padding:13px 0;
+  border-bottom:1px solid var(--line-soft)}
+.sb-game:last-child{border-bottom:none}
+a.sb-game:hover .sb-name{color:var(--green)}
+.sb-top{display:flex;align-items:center;gap:14px}
+.sb-teams{flex:1 1 auto;min-width:0;display:grid;gap:5px}
+.sb-team{display:flex;align-items:center;gap:10px;min-width:0}
+.sb-logo{width:28px;height:28px;object-fit:contain;flex:none}
+.sb-logo-fallback{width:28px;height:28px;flex:none;display:flex;align-items:center;
+  justify-content:center;font-family:"Anton",sans-serif;font-size:10px;
+  letter-spacing:.04em;color:var(--ink);background:var(--surface-2);
+  border:1px solid var(--line-soft);border-radius:6px}
+.sb-rank{flex:none;font-size:12.5px;color:var(--ink-muted);min-width:16px;
+  text-align:right;font-variant-numeric:tabular-nums}
+.sb-name{flex:1 1 auto;min-width:0;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis;font-weight:600;font-size:16px;color:var(--ink-muted)}
+.sb-team.win .sb-name{color:var(--ink);font-weight:800}
+.sb-score{flex:none;font-family:"Anton",sans-serif;font-size:19px;
+  color:var(--ink-muted);font-variant-numeric:tabular-nums;min-width:32px;
+  text-align:right}
+.sb-team.win .sb-score{color:var(--ink)}
+.sb-marker{flex:none;color:var(--green);font-size:11px;width:10px}
+.sb-status{flex:none;min-width:80px;text-align:right;font-size:13px;
+  color:var(--ink-muted);letter-spacing:.03em}
+.sb-status.live{color:var(--orange);font-weight:700}
+.sb-status.final{color:var(--ink-soft);font-weight:600}
+.sb-note{margin-top:7px;font-size:13px;color:var(--ink-muted)}
+.sb-more{padding:2px 0 12px;font-size:13.5px;color:var(--ink-muted)}
+.sb-more a{font-weight:600}
+/* league jump row (v9 addition) — ESPN-style league chips under the
+   scores header, built by scoreboards.js from the same availability
+   pass as the sections (a league with no games gets no chip). One
+   line, horizontal scroll on phones, the homepage jump-strip
+   treatment. Generic sport glyphs in dark circles — never league
+   logo artwork. Pressed/hover state is the house green. */
+.sb-jump{display:flex;gap:10px;overflow-x:auto;white-space:nowrap;
+  padding:20px 2px 2px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.sb-jump::-webkit-scrollbar{display:none}
+.sb-jump:empty{display:none}
+.sb-chip{flex:none;display:flex;flex-direction:column;align-items:center;
+  gap:6px;min-width:64px;text-decoration:none;color:var(--ink-soft)}
+.sb-chip .gly{width:46px;height:46px;border-radius:50%;flex:none;
+  background:var(--surface-2);border:1px solid var(--line-soft);
+  display:flex;align-items:center;justify-content:center;font-size:22px}
+.sb-chip .lab{font-family:"Barlow Condensed",sans-serif;font-weight:700;
+  font-size:12.5px;letter-spacing:.14em}
+.sb-chip:hover .gly,.sb-chip:active .gly{border-color:var(--green);
+  background:rgba(60,232,130,.12)}
+.sb-chip:hover .lab,.sb-chip:active .lab{color:var(--green)}
+@media(max-width:700px){
+  .sb{padding:2px 18px}
+  .sb-status{min-width:68px;font-size:12px}
+  .sb-name{font-size:15px}
+  .sb-top{gap:10px}
+}
+
 /* footer */
 footer.site{margin-top:72px;border-top:1px solid var(--line);background:var(--bg-2)}
 .foot{display:grid;gap:28px;padding:42px 0 8px}
