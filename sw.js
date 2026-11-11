@@ -1,10 +1,10 @@
 
-/* PxP Sports Media — service worker (v5).
+/* PxP Sports Media — service worker (v6).
    App shell is precached; pages are network-first with a cache fallback;
    static assets are cache-first. Cross-origin requests (the ESPN
    live-scores feed above all) are NEVER intercepted or cached — the
    scores must always be live. */
-var CACHE = "pxp-shell-v5";
+var CACHE = "pxp-shell-v6";
 var SHELL = [
   "/",
   "/assets/css/style.css",
