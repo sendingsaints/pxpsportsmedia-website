@@ -83,10 +83,10 @@
     s.className = cls; s.textContent = text;
     return s;
   }
-  function renderBlock(b) {
+  function renderBlock(b, newLg) {
     var frag = document.createDocumentFragment();
     var head = document.createElement("div");
-    head.className = "ld-cat";
+    head.className = "ld-cat" + (newLg ? " new-lg" : "");
     head.appendChild(span("ld-tag", b.league));
     head.appendChild(span("ld-catname", b.cat));
     frag.appendChild(head);
@@ -113,8 +113,14 @@
   function paint() {
     box.textContent = "";
     var any = false;
+    var prevLg = null;
     buckets.forEach(function (blocks) {
-      blocks.forEach(function (b) { box.appendChild(renderBlock(b)); any = true; });
+      blocks.forEach(function (b) {
+        var newLg = prevLg !== null && b.league !== prevLg;
+        box.appendChild(renderBlock(b, newLg));
+        prevLg = b.league;
+        any = true;
+      });
     });
     if (!any) {
       var p = document.createElement("p");

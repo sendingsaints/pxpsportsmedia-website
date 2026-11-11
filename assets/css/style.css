@@ -26,7 +26,19 @@ p{margin:0}
 .sec{font-size:clamp(28px,4.6vw,40px)}
 .sec-lede{margin-top:12px;color:var(--ink-soft);max-width:660px}
 .rule{width:64px;height:3px;background:var(--green);border-radius:2px;margin-top:20px}
-section.block{padding:58px 0 6px}
+section.block{padding:58px 0 6px;scroll-margin-top:150px}
+
+/* homepage jump strip (v8.1) — one quiet line of section anchors,
+   rendered inside the sticky header on the home page only. Single
+   line, horizontally scrollable on narrow screens; never wraps. */
+.jump{display:flex;gap:20px;overflow-x:auto;white-space:nowrap;
+  padding:9px 0 10px;border-top:1px solid var(--line-soft);
+  scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.jump::-webkit-scrollbar{display:none}
+.jump a{flex:none;font-family:"Barlow Condensed",sans-serif;font-weight:600;
+  font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-muted);text-decoration:none}
+.jump a:hover{color:var(--green)}
 
 /* header */
 header.site{position:sticky;top:0;z-index:50;background:rgba(7,9,11,.96);
@@ -246,7 +258,7 @@ a.tk-chip:hover{border-color:var(--green)}
    Both lines wrap, so no chip of text can clip or overflow. */
 .board{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
   border-radius:var(--radius);padding:6px 26px}
-.board-row{display:flex;align-items:baseline;gap:6px 26px;padding:13px 0;
+.board-row{display:flex;align-items:baseline;gap:6px 26px;padding:15px 0;
   border-bottom:1px solid var(--line-soft)}
 .board-row:last-child{border-bottom:none}
 .b-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
@@ -272,7 +284,7 @@ a.tk-chip:hover{border-color:var(--green)}
    can clip, jam, or overflow. */
 .inj{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
   border-radius:var(--radius);padding:6px 26px}
-.inj-row{display:flex;align-items:baseline;gap:6px 22px;padding:12px 0;
+.inj-row{display:flex;align-items:baseline;gap:6px 22px;padding:14px 0;
   border-bottom:1px solid var(--line-soft)}
 .inj-row:last-child{border-bottom:none}
 .i-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
@@ -325,10 +337,11 @@ a.tk-chip:hover{border-color:var(--green)}
   border-radius:var(--radius);padding:6px 26px}
 .ld-cat{display:flex;align-items:baseline;gap:12px;padding:18px 0 2px;flex-wrap:wrap}
 .ld-cat:first-child{padding-top:12px}
+.ld-cat.new-lg{margin-top:16px;padding-top:26px;border-top:1px solid var(--line)}
 .ld-tag{flex:none;font-family:"Anton",sans-serif;font-size:12.5px;letter-spacing:.1em;color:var(--green)}
 .ld-catname{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;
   letter-spacing:.14em;text-transform:uppercase;color:var(--yellow)}
-.ld-row{display:flex;align-items:baseline;gap:6px 22px;padding:9px 0;
+.ld-row{display:flex;align-items:baseline;gap:6px 22px;padding:12px 0;
   border-bottom:1px solid var(--line-soft)}
 .ld-row.last{border-bottom:none}
 .ld-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
@@ -346,15 +359,15 @@ a.tk-chip:hover{border-color:var(--green)}
 /* standings (v8) — full league tables on their own page. Each table
    sits in its own horizontal-scroll wrapper (the .tablewrap pattern):
    the page width never breaks; wide tables scroll inside their box. */
-.st-league{margin-top:40px}
+.st-league{margin-top:52px}
 .st-league-name{font-size:clamp(24px,3.6vw,32px)}
 .st-group{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:18px;
   letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
-  margin:24px 0 10px}
+  margin:28px 0 12px}
 .st-scroll{overflow-x:auto;border:1px solid var(--line-soft);border-radius:var(--radius);
   background:var(--surface);-webkit-overflow-scrolling:touch}
 table.st{border-collapse:collapse;width:100%;min-width:520px;background:transparent}
-table.st th,table.st td{padding:10px 14px;font-size:14.5px;text-align:right;
+table.st th,table.st td{padding:13px 18px;font-size:14.5px;text-align:right;
   white-space:nowrap;border-bottom:1px solid var(--line-soft)}
 table.st th:first-child,table.st td:first-child{text-align:left}
 table.st th{font-family:"Barlow Condensed",sans-serif;font-weight:700;letter-spacing:.12em;
@@ -368,7 +381,7 @@ table.st tr:last-child td{border-bottom:none}
   table.st thead{display:table-header-group}
   table.st tbody{display:table-row-group}
   table.st tr{display:table-row;padding:0;border-bottom:none}
-  table.st td{display:table-cell;width:auto;padding:10px 14px;
+  table.st td{display:table-cell;width:auto;padding:13px 18px;
     border-bottom:1px solid var(--line-soft)}
 }
 
