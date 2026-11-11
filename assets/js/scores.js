@@ -6,7 +6,11 @@
     { label: "CFB", url: "https://site.api.espn.com/apis/site/v2/sports/football/college-football/scoreboard" },
     { label: "CBB", url: "https://site.api.espn.com/apis/site/v2/sports/basketball/mens-college-basketball/scoreboard" },
     { label: "NHL", url: "https://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard" },
-    { label: "MLB", url: "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard" }
+    { label: "MLB", url: "https://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard" },
+    { label: "WNBA", url: "https://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard" },
+    { label: "EPL", url: "https://site.api.espn.com/apis/site/v2/sports/soccer/eng.1/scoreboard" },
+    { label: "MLS", url: "https://site.api.espn.com/apis/site/v2/sports/soccer/usa.1/scoreboard" },
+    { label: "UFC", url: "https://site.api.espn.com/apis/site/v2/sports/mma/ufc/scoreboard", kind: "event" }
   ];
   var MAX_PER_LEAGUE = 16;
   var SECONDS_PER_CHIP = 3.2;
@@ -70,6 +74,27 @@
     chip.appendChild(tag); chip.appendChild(game); chip.appendChild(stEl);
     return chip;
   }
+  /* Event chip (UFC): no team matchup — the chip is the event name
+     (e.g. "UFC 334: Gane vs. Hokit") plus the shared status line
+     (scheduled day/time, LIVE round/clock, or final detail). */
+  function buildEventChip(label, ev) {
+    var title = ev.name || ev.shortName || "";
+    if (!title) return null;
+    var href = (ev.links && ev.links[0] && ev.links[0].href) || "";
+    var chip = document.createElement(href ? "a" : "span");
+    chip.className = "tk-chip";
+    if (href) { chip.href = href; chip.target = "_blank"; chip.rel = "noopener"; }
+    var tag = document.createElement("span");
+    tag.className = "tk-tag"; tag.textContent = label;
+    var game = document.createElement("span");
+    game.className = "tk-game"; game.textContent = title;
+    var s = statusLine(ev);
+    var stEl = document.createElement("span");
+    stEl.className = "tk-st" + (s.live ? " live" : "");
+    stEl.textContent = s.text;
+    chip.appendChild(tag); chip.appendChild(game); chip.appendChild(stEl);
+    return chip;
+  }
   function render(chips) {
     if (!chips.length) return; /* keep "Scores updating…" / prior chips */
     track.textContent = "";
@@ -107,7 +132,9 @@
           var events = ((data && data.events) || []).slice();
           events.sort(function (a, b) { return rank(a) - rank(b); });
           events.slice(0, MAX_PER_LEAGUE).forEach(function (ev) {
-            var chip = buildChip(lg.label, ev);
+            var chip = lg.kind === "event"
+              ? buildEventChip(lg.label, ev)
+              : buildChip(lg.label, ev);
             if (chip) fresh.push(chip);
           });
           buckets[i] = fresh;
