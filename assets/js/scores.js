@@ -85,29 +85,39 @@
     track.style.animationDuration =
       Math.max(30, chips.length * SECONDS_PER_CHIP) + "s";
   }
+  /* Per-league chip buckets in fixed LEAGUES order, kept across loads.
+     Each league's bucket is replaced the moment its own fetch settles,
+     and paint() re-renders the whole track from whatever has arrived so
+     far — the first league to land paints immediately instead of the
+     band waiting on the slowest fetch (v3.1 progressive paint). On a
+     refresh, a league that hasn't settled yet keeps its previous chips
+     until its new result lands. */
+  var buckets = LEAGUES.map(function () { return []; });
+  function paint() {
+    var all = [];
+    buckets.forEach(function (b) { all = all.concat(b); });
+    render(all);
+  }
   function load() {
-    var buckets = LEAGUES.map(function () { return []; });
-    var pending = LEAGUES.length;
     LEAGUES.forEach(function (lg, i) {
       fetch(lg.url, { headers: { "Accept": "application/json" } })
         .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
         .then(function (data) {
+          var fresh = [];
           var events = ((data && data.events) || []).slice();
           events.sort(function (a, b) { return rank(a) - rank(b); });
           events.slice(0, MAX_PER_LEAGUE).forEach(function (ev) {
             var chip = buildChip(lg.label, ev);
-            if (chip) buckets[i].push(chip);
+            if (chip) fresh.push(chip);
           });
+          buckets[i] = fresh;
         })
-        .catch(function () { /* league skipped silently — never an error box */ })
-        .then(function () {
-          pending -= 1;
-          if (pending === 0) {
-            var all = [];
-            buckets.forEach(function (b) { all = all.concat(b); });
-            render(all);
-          }
-        });
+        .catch(function () {
+          /* league skipped silently — never an error box; bucket emptied
+             so a failed refresh drops its stale chips, as in v3 */
+          buckets[i] = [];
+        })
+        .then(paint);
     });
   }
   load();
