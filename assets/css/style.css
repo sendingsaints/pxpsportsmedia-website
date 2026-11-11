@@ -241,6 +241,31 @@ a.tk-chip:hover{border-color:var(--green)}
   color:var(--orange);width:26px;line-height:1.25}
 .board-note{margin-top:14px;font-size:13.5px;color:var(--ink-muted)}
 
+/* the board — market lines (v5). Desktop rows are one line; at phone
+   width each row collapses to two lines (matchup, then the numbers).
+   Both lines wrap, so no chip of text can clip or overflow. */
+.board{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:6px 26px}
+.board-row{display:flex;align-items:baseline;gap:6px 26px;padding:13px 0;
+  border-bottom:1px solid var(--line-soft)}
+.board-row:last-child{border-bottom:none}
+.b-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
+.b-tag{flex:none;font-family:"Anton",sans-serif;font-size:12.5px;letter-spacing:.1em;color:var(--green)}
+.b-match{color:var(--ink);font-weight:700;font-size:16px;white-space:nowrap}
+.b-when{color:var(--ink-muted);font-size:13.5px;white-space:nowrap}
+.b-line2{display:flex;align-items:baseline;gap:6px 24px;flex:none}
+.b-num{font-size:15px;color:var(--ink-soft);white-space:nowrap;font-variant-numeric:tabular-nums}
+.b-num.spread{color:var(--ink);font-weight:700}
+.board-note-line{color:var(--ink-muted);font-size:15px;padding:16px 0}
+.board-bridge{margin-top:22px;display:flex;gap:14px 26px;align-items:center;flex-wrap:wrap}
+.board-bridge p{color:var(--ink-soft);font-size:15.5px;flex:1 1 280px;margin:0}
+@media(max-width:700px){
+  .board{padding:2px 18px}
+  .board-row{flex-direction:column;padding:12px 0}
+  .b-line1{flex-wrap:wrap}
+  .b-line2{flex-wrap:wrap;gap:4px 16px}
+}
+
 /* footer */
 footer.site{margin-top:72px;border-top:1px solid var(--line);background:var(--bg-2)}
 .foot{display:grid;gap:28px;padding:42px 0 8px}
