@@ -266,6 +266,33 @@ a.tk-chip:hover{border-color:var(--green)}
   .b-line2{flex-wrap:wrap;gap:4px 16px}
 }
 
+/* the injury report — who's out (v7). JS-filled rows off ESPN's
+   injuries wire; desktop rows are one line, phone rows collapse to
+   two lines (name, then status/detail). Everything wraps — nothing
+   can clip, jam, or overflow. */
+.inj{margin-top:26px;background:var(--surface);border:1px solid var(--line-soft);
+  border-radius:var(--radius);padding:6px 26px}
+.inj-row{display:flex;align-items:baseline;gap:6px 22px;padding:12px 0;
+  border-bottom:1px solid var(--line-soft)}
+.inj-row:last-child{border-bottom:none}
+.i-line1{display:flex;align-items:baseline;gap:12px;flex:1 1 auto;min-width:0}
+.i-tag{flex:none;font-family:"Anton",sans-serif;font-size:12.5px;letter-spacing:.1em;color:var(--green)}
+.i-name{color:var(--ink);font-weight:700;font-size:16px;overflow-wrap:break-word;min-width:0}
+.i-team{color:var(--ink-muted);font-size:13.5px;white-space:nowrap}
+.i-line2{display:flex;align-items:center;gap:6px 16px;flex:none;flex-wrap:wrap}
+.i-chip{flex:none;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.14em;text-transform:uppercase;padding:3px 9px;border-radius:6px;white-space:nowrap}
+.i-chip.out{background:#e5484d;color:#fff}
+.i-chip.doubt{background:var(--orange);color:#200b06}
+.i-chip.quest{background:var(--yellow);color:#200b06}
+.i-chip.other{background:transparent;border:1px solid var(--line-soft);color:var(--ink-muted)}
+.i-detail{color:var(--ink-soft);font-size:14.5px;overflow-wrap:break-word;min-width:0}
+@media(max-width:700px){
+  .inj{padding:2px 18px}
+  .inj-row{flex-direction:column;padding:11px 0}
+  .i-line1{flex-wrap:wrap}
+}
+
 /* trend watch — script index teasers (v6). Static build-time cards:
    auto-fit grid on desktop, single-column stack on phones. Text runs
    wrap normally; the few display lines were measured against the
