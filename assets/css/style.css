@@ -465,6 +465,59 @@ a.sb-game:hover .sb-name{color:var(--green)}
 .sb-chip:hover .gly,.sb-chip:active .gly{border-color:var(--green);
   background:rgba(60,232,130,.12)}
 .sb-chip:hover .lab,.sb-chip:active .lab{color:var(--green)}
+
+/* opening page (v10) — ESPN homepage grammar in the house system:
+   league row under the ticker, a TOP STORY card (16:9 art, kicker
+   chip on the image, headline over a bottom gradient), then Latest
+   Coverage as story rows. Headlines and deks clamp cleanly — nothing
+   clips, jams, or overflows at phone width (the text-fit rule). */
+.hero.opening{padding:36px 0 4px}
+.hero .brandline{font-size:clamp(26px,4.6vw,42px);max-width:920px}
+.league-row .sb-jump{padding-top:14px}
+.topstory{display:block;margin-top:26px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;
+  text-decoration:none;color:var(--ink)}
+.topstory .ts-media{position:relative;display:block}
+.topstory img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover}
+.topstory .ts-kick{position:absolute;top:14px;left:14px;z-index:2;
+  background:var(--green);color:#06280f;
+  font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:13px;
+  letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;
+  border-radius:999px;max-width:calc(100% - 28px);white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis}
+.topstory .ts-grad{position:absolute;left:0;right:0;bottom:0;display:block;
+  padding:64px 22px 20px;
+  background:linear-gradient(180deg,rgba(4,6,8,0) 0%,rgba(4,6,8,.74) 46%,rgba(4,6,8,.95) 100%)}
+.topstory .ts-meta{display:block;font-family:"Barlow Condensed",sans-serif;
+  font-weight:600;font-size:13.5px;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(230,240,233,.78);margin-bottom:9px}
+.topstory .ts-meta .dot{color:var(--orange);padding:0 6px}
+.topstory .ts-head{font-size:clamp(25px,5.2vw,44px);line-height:1.06;color:#fff}
+.topstory .ts-dek{display:block;margin-top:9px;color:#d8e3db;font-size:15.5px;
+  line-height:1.45;overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical}
+/* small screens: the overlay must never outgrow the image (measured
+   against the longest current headline at 360px) — slightly taller
+   art, one dek line, tighter type keeps everything inside the card */
+@media(max-width:700px){
+  .topstory img{aspect-ratio:16/10}
+  .topstory .ts-head{font-size:22px}
+  .topstory .ts-dek{-webkit-line-clamp:1}
+  .topstory .ts-grad{padding:40px 16px 14px}
+}
+.slist{margin-top:26px;border-top:1px solid var(--line-soft)}
+.srow{display:flex;gap:16px;align-items:center;padding:16px 2px;
+  border-bottom:1px solid var(--line-soft);text-decoration:none;
+  color:var(--ink);min-height:112px}
+.srow:hover h3{color:var(--green)}
+.srow img{flex:none;width:96px;height:96px;object-fit:cover;
+  border-radius:10px;border:1px solid var(--line-soft)}
+.srow .sbody{display:block;min-width:0}
+.srow h3{font-size:19.5px;line-height:1.18;overflow:hidden;display:-webkit-box;
+  -webkit-line-clamp:2;-webkit-box-orient:vertical}
+.srow .meta{margin-top:7px}
+@media(max-width:480px){.srow{gap:13px;min-height:104px}
+  .srow img{width:84px;height:84px}.srow h3{font-size:17.5px}}
 @media(max-width:700px){
   .sb{padding:2px 18px}
   .sb-status{min-width:68px;font-size:12px}
