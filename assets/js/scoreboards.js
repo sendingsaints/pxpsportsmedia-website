@@ -2,11 +2,12 @@
 (function () {
   var BASE = "https://site.api.espn.com/apis/site/v2/sports/";
   var LEAGUES = [
-    { band: "NFL SCOREBOARD", anchor: "nfl", url: BASE + "football/nfl/scoreboard",
+    { band: "NFL SCOREBOARD", anchor: "nfl", week: true,
+      url: BASE + "football/nfl/scoreboard",
       board: "https://www.espn.com/nfl/scoreboard" },
     { band: "NBA SCOREBOARD", anchor: "nba", url: BASE + "basketball/nba/scoreboard",
       board: "https://www.espn.com/nba/scoreboard" },
-    { band: "COLLEGE FOOTBALL SCOREBOARD", anchor: "cfb",
+    { band: "COLLEGE FOOTBALL SCOREBOARD", anchor: "cfb", week: true,
       url: BASE + "football/college-football/scoreboard",
       board: "https://www.espn.com/college-football/scoreboard" },
     { band: "MEN'S COLLEGE HOOPS SCOREBOARD", anchor: "ncaam",
@@ -194,6 +195,14 @@
       .then(function (data) { return (data && data.events) || []; })
       .catch(function () { return []; });
   }
+  function fetchBare(url) {
+    /* the football leagues' week slate — no dates param (see the
+       DATE WINDOW note above) */
+    return fetch(url, { headers: { "Accept": "application/json" } })
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(function (data) { return (data && data.events) || []; })
+      .catch(function () { return []; });
+  }
   /* Per-league section buckets in fixed LEAGUES order — progressive
      paint, same as every other wire on the site: each league's
      section lands the moment its own fetches settle; failures and
@@ -239,36 +248,44 @@
       root.appendChild(p);
     }
   }
+  function settleLeague(i, lg, merged) {
+    merged.sort(function (a, b) {
+      var sa = typeOf(a).state === "in" ? 0 : 1;
+      var sb = typeOf(b).state === "in" ? 0 : 1;
+      if (sa !== sb) return sa - sb;
+      var ra = bestRank(a), rb = bestRank(b);
+      if (ra !== rb) return ra - rb;
+      return new Date(a.date) - new Date(b.date);
+    });
+    counts[i] = merged.length;
+    buckets[i] = merged.length ? buildLeague(lg, merged) : null;
+  }
   function load() {
     settled = LEAGUES.map(function () { return false; });
     var today = etDay(0), yest = etDay(-1);
     LEAGUES.forEach(function (lg, i) {
-      Promise.all([fetchDay(lg.url, today), fetchDay(lg.url, yest)])
-        .then(function (pair) {
-          var seen = {};
-          var merged = [];
-          pair[0].forEach(function (ev) {
-            var k = ev.id || (ev.name + "|" + ev.date);
-            if (!seen[k]) { seen[k] = 1; merged.push(ev); }
-          });
-          pair[1].forEach(function (ev) {
-            /* yesterday feeds the board only games already played —
-               its finals ride along under today's slate */
-            if (typeOf(ev).state === "pre") return;
-            var k = ev.id || (ev.name + "|" + ev.date);
-            if (!seen[k]) { seen[k] = 1; merged.push(ev); }
-          });
-          merged.sort(function (a, b) {
-            var sa = typeOf(a).state === "in" ? 0 : 1;
-            var sb = typeOf(b).state === "in" ? 0 : 1;
-            if (sa !== sb) return sa - sb;
-            var ra = bestRank(a), rb = bestRank(b);
-            if (ra !== rb) return ra - rb;
-            return new Date(a.date) - new Date(b.date);
-          });
-          counts[i] = merged.length;
-          buckets[i] = merged.length ? buildLeague(lg, merged) : null;
-        })
+      var job = lg.week
+        ? fetchBare(lg.url).then(function (events) {
+            settleLeague(i, lg, events.slice());
+          })
+        : Promise.all([fetchDay(lg.url, today), fetchDay(lg.url, yest)])
+            .then(function (pair) {
+              var seen = {};
+              var merged = [];
+              pair[0].forEach(function (ev) {
+                var k = ev.id || (ev.name + "|" + ev.date);
+                if (!seen[k]) { seen[k] = 1; merged.push(ev); }
+              });
+              pair[1].forEach(function (ev) {
+                /* yesterday feeds the board only games already
+                   played — its finals ride along under today's slate */
+                if (typeOf(ev).state === "pre") return;
+                var k = ev.id || (ev.name + "|" + ev.date);
+                if (!seen[k]) { seen[k] = 1; merged.push(ev); }
+              });
+              settleLeague(i, lg, merged);
+            });
+      job
         .catch(function () { buckets[i] = null; counts[i] = 0; })
         .then(function () { settled[i] = true; paint(); });
     });
