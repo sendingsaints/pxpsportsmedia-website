@@ -18,6 +18,13 @@
 <meta name="twitter:description" content="PxP Sports Media is an independent sports outlet: daily coverage, the PXP Recap, and two free picks every day — posted before the games, graded in public after them." />
 <meta name="twitter:image" content="https://pxpsportsmedia.com/assets/img/logo.jpg" />
 <link rel="icon" href="/assets/img/logo.jpg" />
+<link rel="manifest" href="/manifest.webmanifest" />
+<meta name="theme-color" content="#05070A" />
+<link rel="apple-touch-icon" href="/assets/icons/apple-touch-icon.png" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="PxP Sports" />
 <link rel="stylesheet" href="/assets/css/style.css" />
 <script type="application/ld+json">
 {
@@ -249,6 +256,10 @@
       </div>
     </div>
     <div class="foot-base">
+      <div class="pwa-door">
+        <button type="button" id="pwa-install" class="pwa-btn">📲 Get the PxP app — add it to your home screen</button>
+        <p id="pwa-ios-hint" class="pwa-hint" hidden>On iPhone/iPad: tap the Share button, then “Add to Home Screen”. On Android/Chrome: open the browser menu and tap “Install app”.</p>
+      </div>
       <p>© 2026 PxP Sports Media. All highlights and game footage belong to their
       respective owners; PxP publishes original commentary and analysis under fair
       use (17 U.S.C. § 107). This site is not affiliated with or endorsed by the
@@ -259,5 +270,6 @@
   </div>
 </footer>
 <script src="/assets/js/scores.js" defer></script>
+<script src="/assets/js/pwa.js" defer></script>
 </body>
 </html>

@@ -255,3 +255,12 @@ footer.site a:hover{text-decoration:underline}
 .foot-base{border-top:1px solid var(--line-soft);margin-top:30px;padding:20px 0 30px;
   color:var(--ink-muted);font-size:13.5px}
 .foot-base p{margin-top:8px}
+
+/* PWA install door (footer) */
+.pwa-door{margin:0 0 16px}
+.pwa-btn{font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:16px;
+  letter-spacing:.08em;color:var(--ink);background:transparent;border:1px solid var(--line);
+  border-radius:999px;padding:10px 18px;cursor:pointer;max-width:100%;line-height:1.3}
+.pwa-btn:hover{border-color:var(--green);color:var(--green)}
+.pwa-hint{color:var(--ink-soft);font-size:14px}
+#pwa-install[hidden],#pwa-ios-hint[hidden]{display:none}
