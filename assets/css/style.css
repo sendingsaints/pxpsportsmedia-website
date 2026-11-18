@@ -86,6 +86,18 @@ nav.main a:hover{color:var(--green)}
 .feature h3{font-size:clamp(24px,3.4vw,32px)}
 .feature p{margin-top:12px;color:var(--ink-soft);font-size:16px}
 .feature .btn-row{margin-top:auto;padding-top:22px}
+
+/* play educated — standing pinned homepage feature; never rotates */
+.pe-card{background:var(--surface);border:1px solid var(--line);
+  border-radius:var(--radius);overflow:hidden;display:grid}
+@media(min-width:860px){.pe-card{grid-template-columns:360px 1fr}}
+.pe-vid{background:#000;padding:24px;display:flex;align-items:center;justify-content:center}
+.pe-vid .embed{margin-top:0;width:100%;max-width:360px}
+.pe-body{padding:32px 30px;display:flex;flex-direction:column;justify-content:center;min-width:0}
+.pe-body h2{font-size:clamp(36px,5.4vw,56px)}
+.pe-body h2 .g{color:var(--green)}
+.pe-line{margin-top:16px;color:var(--ink-soft);font-size:17.5px;max-width:520px}
+.pe-body .btn-row{margin-top:26px}
 .grid{display:grid;gap:22px;margin-top:34px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
 .card{background:var(--surface);border:1px solid var(--line-soft);border-radius:var(--radius);
   overflow:hidden;display:flex;flex-direction:column;transition:border-color .15s ease,transform .15s ease}
